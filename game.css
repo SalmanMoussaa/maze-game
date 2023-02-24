@@ -113,3 +113,10 @@ div.you_lost{
 	height: 150px;
 	width: 98px;
 }
+#score ,#timer{
+	margin-left: 700px;
+	
+}
+p{
+	align-items: center;
+}

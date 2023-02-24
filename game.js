@@ -2,15 +2,11 @@ window.onload=function(){
    
 
     var boundarie=document.getElementsByClassName("boundary");
-    reset();
     var status =document.getElementById("status").innerHTML;
     var score=0;
-    var timer;
-    var start = document.getElementById("start");
     win();
-    mouseUp();
+    reset();
     
-
     var timer_element=document.getElementById("timer");
 
     function gameStart(){
@@ -18,19 +14,21 @@ window.onload=function(){
             boundarie[i].addEventListener("mouseenter",lose);
         
     }
-    var ms=0;
-    timer=setInterval(()=>{Element.innerHTML="timer 00:00:"+ms;ms++;},100);
+    startTimer();
+    reset()
+   
 }
 
     function lose(){
         for (var i=0;i<boundarie.length;i++){
             boundarie[i].classList.add("you_lost");
             document.getElementById("status").innerHTML="you lost";
+            
 
     }
-        score=score-10;
-        document.getElementById("test").innerHTML="Score: "+score;
-        clearInterval(timer);
+        score-=10;
+        document.getElementById("score").innerHTML="Score: ",score;
+        stopTimer();
 
 
 
@@ -43,15 +41,11 @@ window.onload=function(){
 
     function reset(){
         document.getElementById("start").addEventListener("mouseenter",reset_colors);
+        
+        
+        
     }
     
-
-    
-       
-               
-
-
-
 function win(){
     document.getElementById("end").addEventListener("mouseenter",won);
 }
@@ -62,22 +56,26 @@ function won(){
     document.getElementById("status").innerHTML="you won!";
     score+=5;
     document.getElementById("score").innerHTML="Score: "+score;
-    clearInterval(timer);
+    reset()
+    stopTimer();
 
 
 }
-function mouseUp() {
-    window.removeEventListener('mousemove', move, true);
+var start_time
+function startTimer() {
+    start_time = Date.now();
+    var interval = setInterval(function() {
+        var elapsedTime = Date.now() -  start_time;
+        timer_element.innerHTML = "Live: " + (elapsedTime / 1000).toFixed(3);
+    }, 100);
+}
+function stopTimer(){
+    clearInterval(interval);
+    timer_element.innerHTML = "Live: 0.0";
 }
 
-function mouseDown(e) {
-    window.addEventListener('mousemove', move, true);
-}
 
-function move(e) {
-    start.style.top = e.clientY + 'px';
-    start.style.left = e.clientX + 'px';
-}
+
 
 document.getElementById("start").addEventListener("mouseenter",gameStart);
 
