@@ -7,6 +7,7 @@ window.onload=function(){
     win();
     reset();
     
+    
     var timer_element=document.getElementById("timer");
 
     function gameStart(){
@@ -19,6 +20,7 @@ window.onload=function(){
    
 }
 
+
     function lose(){
         for (var i=0;i<boundarie.length;i++){
             boundarie[i].classList.add("you_lost");
@@ -27,20 +29,23 @@ window.onload=function(){
 
     }
         score-=10;
-        document.getElementById("score").innerHTML="Score: ",score;
+        document.getElementById("score").innerHTML="Score: "+score;
         stopTimer();
 
 
 
 }       
-    function reset_colors(){
+    function reset_all(){
         for(var i=0;i<boundarie.length;i++){
             boundarie[i].classList.remove("you_lost");
             document.getElementById("status").innerHTML=status;
+            score=0;
+             document.getElementById("score").innerHTML="Score: "+score;
+            
     }}
 
     function reset(){
-        document.getElementById("start").addEventListener("mouseenter",reset_colors);
+        document.getElementById("start").addEventListener("click",reset_all);
         
         
         
@@ -56,7 +61,6 @@ function won(){
     document.getElementById("status").innerHTML="you won!";
     score+=5;
     document.getElementById("score").innerHTML="Score: "+score;
-    reset()
     stopTimer();
 
 
